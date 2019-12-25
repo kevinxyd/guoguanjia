@@ -4,9 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xyd.config.MybatisConfig;
 import com.xyd.entity.AppVersion;
+import com.xyd.entity.Qualification;
 import com.xyd.entity.User;
 import com.xyd.mapper.AppVersionMapper;
+import com.xyd.mapper.QualificationMapper;
 import com.xyd.service.AppVersionService;
+import com.xyd.service.QualificationService;
 import com.xyd.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,78 +27,18 @@ import java.util.List;
 public class TestConfig {
 
     @Autowired
-    DruidDataSource druidDataSource;
-    @Autowired
-    AppVersionMapper mapper;
-    @Autowired
-    SqlSessionFactoryBean sqlSessionFactoryBean;
-    @Autowired
-    AppVersionService appVersionService;
-
-    @Autowired
-    UserService userService;
-    @Test
-    public void testDruidDataSource(){
-        try {
-            System.out.println(sqlSessionFactoryBean.getObject().openSession().getConnection());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test
-    public void testMapper(){
-
-        AppVersion appVersion = mapper.selectByPrimaryKey((long) 1);
-        System.out.println(appVersion);
-    }
-    @Test
-    public void testMapperInsert(){
-        AppVersion appVersion = new AppVersion();
-        appVersion.setDelFlag("0");
-        appVersion.setUpdateDate(new Date());
-        appVersion.setCreateDate(new Date());
-        appVersion.setCreateBy("admin");
-        appVersion.setDownPath("http://127.0.0.1:8080/guguanjia/manager/#/ajax/manager/app/index");
-        appVersion.setVersionNo("1.5.8");
-        appVersion.setPlatform(0);
-        appVersion.setForceUpdate(0);
-        int i = mapper.insertSelective(appVersion);//动态更新
-//        int insert = mapper.insert(appVersion);
-        System.out.println(appVersion);
-    }
-
-
+    QualificationService qualificationService;
 
     @Test
-    public void testServiceInsert(){
-        AppVersion appVersion = new AppVersion();
-        appVersion.setDelFlag("0");
-        appVersion.setUpdateDate(new Date());
-        appVersion.setCreateDate(new Date());
-        appVersion.setCreateBy("admin");
-        appVersion.setDownPath("http://127.0.0.1:8080/guguanjia/manager/#/ajax/manager/app/index");
-        appVersion.setVersionNo("1.5.8");
-        appVersion.setPlatform(0);
-        appVersion.setForceUpdate(0);
-        int i = appVersionService.insertSelective(appVersion);//动态更新
-//        int insert = mapper.insert(appVersion);
-        System.out.println(appVersion);
+    public void test1(){
+        HashMap<String, Object> map = new HashMap<>();
+        //map.put("pageNum",1);
+        map.put("check",0);
+        map.put("type",0);
+        map.put("start","2019-02-01");
+        map.put("end","2019-10-01");
+        PageInfo<Qualification> qualifications = qualificationService.selectByCondition(map);
+        System.out.println(qualifications);
     }
 
-
-    @Test
-    public void testPageInfo(){
-        PageHelper.startPage(1,3);
-        List<AppVersion> list = mapper.selectAll();//当前方法返回值已经被替换成Page对象类型
-        PageInfo<AppVersion> pageInfo = new PageInfo<>(list);
-        System.out.println(pageInfo);
-
-    }
-    @Test
-    public void testUser(){
-        PageHelper.startPage(1,10);
-        List<User> list = userService.selectAll();
-        PageInfo<User> userPageInfo = new PageInfo<>(list);
-        System.out.println(userPageInfo);
-    }
 }
