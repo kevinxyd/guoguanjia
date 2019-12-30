@@ -3,10 +3,11 @@ package com.xyd.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Table(name = "sys_user")
-public class User {
+public class SysUser {
     /**
      * 编号
      */
@@ -123,6 +124,46 @@ public class User {
      */
     @Column(name = "head_picture")
     private String headPicture;
+
+    @Transient
+    private SysOffice sysOffice;//关联公司属性
+
+    public SysOffice getSysOffice() {
+        return sysOffice;
+    }
+
+    public void setSysOffice(SysOffice sysOffice) {
+        this.sysOffice = sysOffice;
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", officeId=" + officeId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", no='" + no + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", userType='" + userType + '\'' +
+                ", deviceCode='" + deviceCode + '\'' +
+                ", loginIp='" + loginIp + '\'' +
+                ", loginDate=" + loginDate +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", status='" + status + '\'' +
+                ", headPicture='" + headPicture + '\'' +
+                ", sysOffice=" + sysOffice +
+                '}';
+    }
 
     /**
      * 获取编号

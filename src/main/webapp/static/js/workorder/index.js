@@ -33,7 +33,7 @@ let vm = new Vue({
             this.params.pageSize=pageSize;
             //发送ajax请求查询分页数据，并返回给userList接收  ，通过  vue接管遍历显示数据
             axios({
-                url:'manager/examine/toList',
+                url:'manager/admin/work/toList',
                 data:this.params,
                 method:'post'
             }).then(response => {//箭头函数可以自动将上下文的this传递到当前函数中
@@ -54,6 +54,40 @@ let vm = new Vue({
         select:function(){
             this.clear();
             this.selectAll(1,5)
+        },
+        selectOne:function(id){
+            axios({
+                url:'manager/admin/work/selectByOid',
+                params:{oid:id}
+
+            }).then(response => {//箭头函数可以自动将上下文的this传递到当前函数中
+                //
+                layer.obj = response.data;
+                layer.open({
+                    type:2,
+                    content:'manager/admin/work/toDetail',
+                    area:['80%','80%']
+                })
+            }).catch(function (error) {
+                layer.msg(error);
+            })
+        },
+        print:function(id){
+            axios({
+                url:'manager/admin/work/selectByOid',
+                params:{oid:id}
+
+            }).then(response => {//箭头函数可以自动将上下文的this传递到当前函数中
+                //
+                layer.obj = response.data;
+                layer.open({
+                    type:2,
+                    content:'manager/admin/work/toPrint',
+                    area:['80%','80%']
+                })
+            }).catch(function (error) {
+                layer.msg(error);
+            })
         },
         //初始化菜单树
         initTree:function(){

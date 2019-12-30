@@ -146,6 +146,29 @@
       <groupId>com.github.pagehelper</groupId>  
       <artifactId>pagehelper</artifactId>  
       <version>5.1.10</version> 
-    </dependency> 
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.13</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20190722</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baidu</groupId>
+      <artifactId>ueditor</artifactId>
+      <version>1.1.2</version>
+    </dependency>
   </dependencies> 
 </project>
