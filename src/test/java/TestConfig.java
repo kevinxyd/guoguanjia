@@ -15,12 +15,15 @@ import java.util.Map;
 public class TestConfig {
 
     @Autowired
-    StatuteService statuteService;
+    AppVersionService statuteService;
 
     @Test
     public void test1() {
         Map<String, Object> map = new HashMap<>();
-        System.out.println(statuteService.selectByCondition(map));
+        map.put("pageNum",1);
+        map.put("pageSize",5);
+        map.put("type",1);
+        System.out.println(statuteService.selectPage(1,2));
 
     }
 

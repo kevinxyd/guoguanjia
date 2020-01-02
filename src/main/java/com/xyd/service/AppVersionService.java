@@ -13,5 +13,5 @@ import com.xyd.entity.AppVersion;
  */
 public interface AppVersionService extends IService<AppVersion> {
 
-    PageInfo<AppVersion> selectPage(int pageNum, int pageSize);
+    PageInfo<AppVersion> selectPage(Integer pageNum, Integer pageSize);
 }

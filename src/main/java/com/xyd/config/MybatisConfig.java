@@ -25,7 +25,7 @@ import java.util.Properties;
  */
 @Configuration
 @MapperScan(basePackages = "com.xyd.mapper")
-@Import(SpringTxConfig.class)
+@Import({SpringTxConfig.class,SpringCacheConfig.class})
 @PropertySource(value = "classpath:system.properties",encoding = "utf-8")
 public class MybatisConfig {
     //配置数据源

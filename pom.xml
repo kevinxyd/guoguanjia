@@ -170,5 +170,21 @@
       <artifactId>ueditor</artifactId>
       <version>1.1.2</version>
     </dependency>
-  </dependencies> 
+    <!--SPRING DATA REDIS 技术2.0以后 的缓存环境配置有不一样的api  所以暂时用2.0以下
+   2.0以下对应的jedis就是jedis3.0以下的版本
+   -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.3</version>
+    </dependency>
+    <!--spring 提供的 数据访问层连接技术框架    -->
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.8.23.RELEASE</version>
+    </dependency>
+
+  </dependencies>
 </project>

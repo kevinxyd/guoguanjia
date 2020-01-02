@@ -3,9 +3,13 @@ package com.xyd.service.serviceimpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xyd.entity.Statute;
+import com.xyd.entity.SysOffice;
 import com.xyd.mapper.StatuteMapper;
 import com.xyd.service.StatuteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -23,11 +27,14 @@ import java.util.Map;
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "statuteCache")
 public class StatuteServiceImpl extends IServiceImpl<Statute> implements StatuteService {
 
     @Autowired
     StatuteMapper statuteMapper;
 
+    //命中率：正确命中缓存的数据
+    @Cacheable(key = "'StatuteServiceImpl:selectByCondition'+#condition['pageNum']+#condition['pageSize']+#condition['type']")
     @Override
     public PageInfo<Statute> selectByCondition(Map<String, Object> condition) {
         //默认值设置
@@ -45,5 +52,11 @@ public class StatuteServiceImpl extends IServiceImpl<Statute> implements Statute
 
         return pageInfo;
 
+    }
+
+    @CacheEvict(/*cacheNames = "statuteCache" ,*/allEntries = true)
+    @Override
+    public int updateByPrimaryKeySelective(Statute statute) {
+        return super.updateByPrimaryKeySelective(statute);
     }
 }

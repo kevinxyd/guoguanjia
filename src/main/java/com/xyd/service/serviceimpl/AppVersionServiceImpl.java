@@ -6,6 +6,9 @@ import com.xyd.entity.AppVersion;
 import com.xyd.mapper.AppVersionMapper;
 import com.xyd.service.AppVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +24,23 @@ import java.util.List;
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "appVersionCache")
 public class AppVersionServiceImpl extends IServiceImpl<AppVersion> implements AppVersionService {
 
+
+    @Cacheable(key = "'AppVersionServiceImpl:selectByCondition'+#pageNum+#pageSize")
     @Override
-    public PageInfo<AppVersion> selectPage(int pageNum, int pageSize) {
+    public PageInfo<AppVersion> selectPage(Integer pageNum, Integer pageSize) {
         //开启分页拦截  分页插件会自动在最近一个sql执行前，自动添加分页的sql代码 limit x,x
         PageHelper.startPage(pageNum,pageSize);
         List<AppVersion> list = mapper.selectAll();//当前方法返回值已经被替换成Page对象类型
         return new PageInfo<>(list);
+    }
+
+    @CacheEvict(allEntries = true)
+    @Override
+    public int updateByPrimaryKeySelective(AppVersion T) {
+        return super.updateByPrimaryKeySelective(T);
     }
 
     /*@Autowired
