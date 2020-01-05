@@ -1,5 +1,6 @@
 
 import com.xyd.config.MybatisConfig;
+import com.xyd.mapper.SysAreaMapper;
 import com.xyd.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,15 +16,14 @@ import java.util.Map;
 public class TestConfig {
 
     @Autowired
-    AppVersionService statuteService;
+    SysAreaMapper statuteService;
 
     @Test
     public void test1() {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNum",1);
         map.put("pageSize",5);
-        map.put("type",1);
-        System.out.println(statuteService.selectPage(1,2));
+        //System.out.println(statuteService.se(map));
 
     }
 
