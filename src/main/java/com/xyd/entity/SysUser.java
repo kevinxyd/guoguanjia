@@ -1,5 +1,7 @@
 package com.xyd.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -80,6 +82,7 @@ public class SysUser {
      * 最后登陆时间
      */
     @Column(name = "login_date")
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private Date loginDate;
 
     /**
@@ -127,6 +130,16 @@ public class SysUser {
 
     @Transient
     private SysOffice sysOffice;//关联公司属性
+    @Transient
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public SysOffice getSysOffice() {
         return sysOffice;

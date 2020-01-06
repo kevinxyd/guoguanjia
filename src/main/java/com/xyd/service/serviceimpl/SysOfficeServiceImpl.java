@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xyd.entity.SysOffice;
 import com.xyd.mapper.SysOfficeMapper;
 import com.xyd.service.SysOfficeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,6 +21,8 @@ import java.util.Map;
 @CacheConfig(cacheNames = "sysOfficeCache")
 public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements SysOfficeService{
 
+    @Autowired
+    SysOfficeMapper officeMapper;
 
     @Override
     public PageInfo<SysOffice> selectByCondition(Map<String, Object> params) {
@@ -65,5 +68,32 @@ public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements Sys
     @Override
     public int updateByPrimaryKeySelective(SysOffice record) {
         return super.updateByPrimaryKeySelective(record);
+    }
+
+
+    /**
+     * 更新office和  office_waste
+     * @param sysOffice
+     * @return
+     */
+    @Override
+
+    public int update(SysOffice sysOffice){
+        long[] wasteIds = null;
+        int result = 0;
+
+        mapper.updateByPrimaryKeySelective(sysOffice);
+        result+=1;
+        officeMapper.deleteOfficeWaste(sysOffice.getId());
+        result += 1;
+        if(sysOffice.getWastes().size()>0){
+            wasteIds = new long[sysOffice.getWastes().size()];
+            for (int i = 0; i < sysOffice.getWastes().size(); i++) {
+                wasteIds[i]=sysOffice.getWastes().get(i).getId();
+            }
+            officeMapper.insertBathOfficeWaste(sysOffice.getId(),wasteIds);
+            result +=1;
+        }
+        return result;
     }
 }

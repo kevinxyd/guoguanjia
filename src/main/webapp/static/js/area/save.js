@@ -18,6 +18,7 @@ var vm = new Vue({
             this.area.parentIds="0,1,6,";*/
             //更新
             console.log(this.area.icon)
+            console.log(this.area);
             axios({
                 url:'manager/area/doUpdate',
                 method:'post',

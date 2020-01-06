@@ -13,4 +13,5 @@ public interface SysOfficeService extends IService<SysOffice> {
     SysOffice selectByOid(long oid);
 
 
+    int update(SysOffice sysOffice);
 }

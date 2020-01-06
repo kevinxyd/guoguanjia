@@ -36,7 +36,6 @@ var vm = new Vue({
             params:{
                 pageNum: '',
                 pageSize: '',
-                name:'',//机构名称
                 areaName:'',//默认值，让下拉出现的时候默认被选中
                 aid:0
             }
@@ -62,15 +61,14 @@ var vm = new Vue({
         toUpdate: function (id) {
             axios({
                 url:'manager/office/toUpdate',
-                params: {id:id}
+                params: {oid:id}
             }).then(response => {
-
                 layer.obj = response.data;//返回数据，绑定到layer上，传递给子窗口
-                console.log(layer)
+                // console.log(layer)
                 let index = layer.open({
                     type:2,
                     title:'区域修改',
-                    content:'manager/office/toUpdate',
+                    content:'manager/office/toUpdatePage',
                     area:['80%','80%'],
                     end: () => {//将then函数中的this传递到end的回调函数中
                         console.log(".....")
@@ -98,13 +96,13 @@ var vm = new Vue({
             axios({
                 url:'manager/office/list'
             }).then(response => {
-               this.nodes = response.data;//   this.setNodes(.....)
+                this.nodes = response.data;//   this.setNodes(.....)
                 this.nodes[this.nodes.length]={
                     "id": 0,
                     "name": "所有机构"
                 }
-              this.treeObj =   $.fn.zTree.init($("#treeMenu"),this.setting,this.nodes);
-              console.log(this.treeObj)  ;
+                this.treeObj =   $.fn.zTree.init($("#treeMenu"),this.setting,this.nodes);
+                // console.log(this.treeObj)  ;
 
             }).catch(function (error) {
                 layer.msg(error);
@@ -116,14 +114,14 @@ var vm = new Vue({
             // console.log(11)
         },
         beforeEditName:function(treeId,treeNode){//树的id  和  当前的修改按键对应的node对象
-            console.log(treeNode);
-            console.log("执行修改功能.....")
+            // console.log(treeNode);
+            // console.log("执行修改功能.....")
             this.toUpdate(treeNode.id);
             return false;
         },
         beforeRemove: function (treeId,treeNode){//树的id  和  当前的修改按键对应的node对象
-            console.log(treeNode);
-            console.log("执行删除功能。。。。。")
+            // console.log(treeNode);
+            // console.log("执行删除功能。。。。。")
             return true;
         },
         //1.鼠标移动到节点上，自动触发该回调函数

@@ -156,20 +156,20 @@
                                     <form method="post" class="form-search" id="search-form1" target="list-page"
                                           action="office/list">
                                         <div class="input-group" style="line-height: 0px;">
-                                            <span class="input-group-btn">
-                                                <span class=" btn  btn-success btn-sm"
-                                                      id="search-all-btn">
-                                                     显示全部
-                                                </span>
-                                            </span>
+					<span class="input-group-btn">
+						<span class=" btn  btn-success btn-sm"
+                              id="search-all-btn">
+							 显示全部
+						</span>
+					</span>
                                             <input type="text" class="form-control search-query"
-                                                   name="name" placeholder="机构名称" id="search-input" @keyup.enter = "selectAll(1,5)" v-model = "params.name">
+                                                   name="name" placeholder="机构名称" id="search-input">
                                             <span class="input-group-btn">
-                                                <span class="btn  btn-success btn-sm"
-                                                      id="search-btn">
-                                                    搜索 <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
-                                                </span>
-                                            </span>
+						<span class="btn  btn-success btn-sm"
+                              id="search-btn">
+							搜索 <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+						</span>
+					</span>
                                         </div>
                                         <input type="hidden" name="id"/>
                                     </form>
@@ -236,9 +236,9 @@
                                             <div class="clearfix">
                                                 <div style="float: left;">
                                                     <div style="padding-top:5px;">
-                                                        <span class="badge badge-info">
-                                                            当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
-                                                        </span>
+			<span class="badge badge-info">
+				当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+			</span>
                                                     </div>
                                                 </div>
                                                 <div>

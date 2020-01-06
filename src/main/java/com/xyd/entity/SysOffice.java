@@ -3,7 +3,9 @@ package com.xyd.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "sys_office")
 public class SysOffice {
@@ -134,6 +136,27 @@ public class SysOffice {
      */
     private String remarks;
 
+    @Transient
+    private String areaName;
+
+    @Transient
+    private List<Waste> wastes;//关联waste列表
+
+    public List<Waste> getWastes() {
+        return wastes;
+    }
+
+    public void setWastes(List<Waste> wastes) {
+        this.wastes = wastes;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
     /**
      * 获取编号
      *

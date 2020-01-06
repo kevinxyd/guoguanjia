@@ -1,12 +1,15 @@
 package com.xyd.mapper;
 
 import com.xyd.entity.SysUser;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.xyd.mapper.provider.SysUserProvider;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 public interface SysUserMapper extends Mapper<SysUser> {
+
 
 
     /**
@@ -26,4 +29,11 @@ public interface SysUserMapper extends Mapper<SysUser> {
             @Result(property = "sysOffice.name",column = "officeName")
     })
     SysUser selectById(long uid);
+    //设置关联查询，将用户id对应的所有的roles查询出来
+    @SelectProvider(type = SysUserProvider.class,method = "selectByCondition")
+    @Results({
+            @Result(property = "id",column = "su.id"),
+            @Result(property = "sysOffice.name",column = "officeName")
+    })
+    List<SysUser> selectByCondition(Map<String,Object> params);
 }
