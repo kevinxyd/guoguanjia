@@ -1,4 +1,5 @@
 
+import com.github.pagehelper.PageInfo;
 import com.xyd.config.MybatisConfig;
 import com.xyd.entity.SysUser;
 import com.xyd.mapper.SysAreaMapper;
@@ -19,15 +20,11 @@ import java.util.Map;
 public class TestConfig {
 
     @Autowired
-    SysUserMapper statuteService;
+    SysUserService statuteService;
 
     @Test
     public void test1() {
-        Map<String, Object> map = new HashMap<>();
-        List<SysUser> sysUsers = statuteService.selectByCondition(null);
-        for (SysUser s:sysUsers) {
-            System.out.println(s.getId() + "" + s.getName() + " " + s.getRoleName());
-        }
+
     }
 
 }

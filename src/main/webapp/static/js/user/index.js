@@ -18,9 +18,14 @@ let vm = new Vue({
                 }
             },
             name:'',
-            pageInfo:'',
+            pageInfo: {
+                pageNum: 1,
+                pageSize: 5
+            },
             params:{
-                type:''
+                mobile:'',
+                name:'',
+                roleName:''
             },
             officeName:'全部'
         }
@@ -45,6 +50,29 @@ let vm = new Vue({
                 layer.msg(error);
             })
         },
+        toUpdate: function (id) {
+            console.log(id)
+            axios({
+                url:'manager/user/toUpdate',
+                params: {id:id}
+            }).then(response => {
+                layer.obj = response.data;//返回数据，绑定到layer上，传递给子窗口
+                console.log(layer.obj)
+                let index = layer.open({
+                    type:2,
+                    title:'区域修改',
+                    content:'manager/user/toUpdatePage',
+                    area:['80%','80%'],
+                    end: () => {//将then函数中的this传递到end的回调函数中
+                        console.log(".....")
+                        //刷新页面数据    1.直接查询selectAll实现    2.获取layer.appVersion更新当前pageInfo的该数据
+                        this.selectAll(this.pageInfo.pageNum,this.pageInfo.pageSize);
+                    }
+                });
+            }).catch(function (error) {
+                console.log(error);
+            })
+        },
         clear:function(){
           this.params = {
               type:''
@@ -54,8 +82,8 @@ let vm = new Vue({
         select:function(){
             this.clear();
             this.selectAll(1,5)
-        },
-        //初始化菜单树
+        }
+       /* //初始化菜单树
         initTree:function(){
             //菜单树支持两种结果的节点数组：
             // 简单数组格式 :[{"id":1,name:'个人中心',"pId":0},{"id":2,name:'单位管理',"pId":0},{"id":3,name:'业务管理',"pId":0},{"id":4,name:'我的资料',"pId":1},{"id":5,name:'单位信息',"pId":2},{"id":6,name:'单位账号',"pId":2},{"id":7,name:'电子台账',"pId":2}]
@@ -97,20 +125,20 @@ let vm = new Vue({
         },
         search:function () {
             // console.log("search")
-            /**
+            /!**
              * 1.获取树对象
              * 2.进行模糊查询匹配到所有的匹配节点数组
-             */
+             *!/
             let treeObj = $.fn.zTree.getZTreeObj("pullDownTreeone");
             // console.log(treeObj.getNodes())//复杂数组格式
             //key:需要匹配属性名   value:需要匹配的值   parentNode 父节点
             let nodes = treeObj.getNodesByParamFuzzy("name",this.name,null);
             console.log(nodes);
-            /**
+            /!**
              * 3.获取所有节点数据，转换成简单数组模式
              * 4.遍历所有节点，给所有找到的节点设置一个高亮标记属性  清除前需要修改旧查询到的节点标记为false
              * 5.更新树对象
-             */
+             *!/
             let treeNodes =	treeObj.transformToArray(treeObj.getNodes());//转换成简单数据格式
             for (let i = 0; i < treeNodes.length; i++) {
                 treeNodes[i].highLight=false;
@@ -133,12 +161,12 @@ let vm = new Vue({
             // return treeNode.name=="单位管理"?{color:"red"}:'';
             //如果是highLight标记为true的高亮
             return treeNode.highLight?{color:"red"}:{color:'black'};
-        }
+        }*/
     },
     created:function () {
         this.selectAll(1,5);
     },
-    mounted:function () {//在挂载dom后调用
+    /*mounted:function () {//在挂载dom后调用
         this.initTree();
-    }
+    }*/
 })

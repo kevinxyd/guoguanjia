@@ -15,16 +15,27 @@ import java.util.Map;
 public class SysUserProvider {
     public String selectByCondition(Map<String,Object> condition){
         StringBuilder sb = new StringBuilder();
-        sb.append("select su.*,GROUP_CONCAT(sr.name ) roleName,so.`name` officeName from sys_user su left join sys_user_role sur on su.id = sur.user_id left join sys_role sr  on sr.id = sur.role_id left join sys_office so on su.office_id = so.id GROUP BY su.id ");
-        /*if(condition.containsKey("officeId")&&!StringUtils.isEmpty(condition.get("officeId"))){
-            sb.append(" and so.id=#{officeId} ");
-        }*/
-        if(condition.containsKey("userName")&&!StringUtils.isEmpty(condition.get("userName"))){
-            sb.append(" and su.name like concat('%',#{userName},'%') ");
+        if(condition.containsKey("name")&&!StringUtils.isEmpty(condition.get("name")) ||
+           condition.containsKey("roleName")&&!StringUtils.isEmpty(condition.get("roleName")) ||
+           condition.containsKey("mobile")&&!StringUtils.isEmpty(condition.get("mobile"))){
+            sb.append("select su.*,GROUP_CONCAT(sr.name ) roleName,so.`name` officeName " +
+                    "from sys_user su,sys_user_role sur,sys_role sr,sys_office so " +
+                    "where  su.id = sur.user_id " +
+                    "and  sr.id = sur.role_id  " +
+                    "and su.office_id = so.id   " );
+            if(condition.containsKey("name")&&!StringUtils.isEmpty(condition.get("name"))){
+                sb.append(" and su.name like concat('%',#{name},'%') ");
+            }
+            if(condition.containsKey("roleName")&&!StringUtils.isEmpty(condition.get("roleName"))){
+                sb.append(" and sr.name like concat('%',#{roleName},'%')");
+            }
+            if(condition.containsKey("mobile")&&!StringUtils.isEmpty(condition.get("mobile"))){
+                sb.append(" and su.mobile like concat('%',#{mobile},'%')");
+            }
+        } else {
+            sb.append("select su.*,GROUP_CONCAT(sr.name ) roleName,so.`name` officeName from sys_user su left join sys_user_role sur on su.id = sur.user_id left join sys_role sr  on sr.id = sur.role_id left join sys_office so on su.office_id = so.id ");
         }
-        if(condition.containsKey("roleName")&&!StringUtils.isEmpty(condition.get("roleName"))){
-            sb.append(" and sr.name=#{roleName} ");
-        }
+        sb.append(" GROUP BY su.id ");
         System.out.println(sb.toString());
         return sb.toString();
     }
