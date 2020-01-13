@@ -73,6 +73,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 
         InterceptorRegistration resourcesRegistration = registry.addInterceptor(resourcesInteceptor);
         //设置拦截逻辑
+
         resourcesRegistration.addPathPatterns(new String[]{"/**"});//拦截所有请求
         resourcesRegistration.excludePathPatterns(new String[]{"/toLogin","/doLogin","/index","/manager/menu/selectByUid"});
         resourcesRegistration.order(2);
