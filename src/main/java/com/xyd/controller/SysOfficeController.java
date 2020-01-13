@@ -79,4 +79,9 @@ public class SysOfficeController {
         }
         return result;
     }
+
+    @RequestMapping("selectByRid")
+    public List<SysOffice> selectByRid(long rid){
+        return sysOfficeService.selectByRid(rid);
+    }
 }

@@ -3,6 +3,7 @@ package com.xyd.service;
 import com.github.pagehelper.PageInfo;
 import com.xyd.entity.SysOffice;
 
+import java.util.List;
 import java.util.Map;
 
 public interface SysOfficeService extends IService<SysOffice> {
@@ -14,4 +15,6 @@ public interface SysOfficeService extends IService<SysOffice> {
 
 
     int update(SysOffice sysOffice);
+
+    List<SysOffice> selectByRid(long rid);
 }

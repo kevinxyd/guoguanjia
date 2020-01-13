@@ -86,6 +86,7 @@ public class SpringCacheConfig {
         cacheNames.add("sysOfficeCache");
         cacheNames.add("statuteCache");
         cacheNames.add("appVersionCache");
+        cacheNames.add("resourceCache");
         redisCacheManager.setCacheNames(cacheNames);
         return redisCacheManager;
     }

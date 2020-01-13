@@ -56,6 +56,14 @@ public class MainController {
 
 //
     }
+    @RequestMapping("logout")
+    @ResponseBody
+    public Result logout(HttpSession session){
+        Result result = new Result();
+        session.invalidate();
+        result.setSuccess(true);
+        return result;
+    }
 
     @RequestMapping("index")
     public String index(){

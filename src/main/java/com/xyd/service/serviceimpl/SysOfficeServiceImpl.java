@@ -96,4 +96,9 @@ public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements Sys
         }
         return result;
     }
+
+    @Override
+    public List<SysOffice> selectByRid(long rid){
+        return officeMapper.selectByRid(rid);
+    }
 }
