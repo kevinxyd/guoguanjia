@@ -27,14 +27,14 @@ import java.util.Map;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames = "statuteCache")
+//@CacheConfig(cacheNames = "statuteCache")
 public class StatuteServiceImpl extends IServiceImpl<Statute> implements StatuteService {
 
     @Autowired
     StatuteMapper statuteMapper;
 
     //命中率：正确命中缓存的数据
-    @Cacheable(key = "'StatuteServiceImpl:selectByCondition'+#condition['pageNum']+#condition['pageSize']+#condition['type']")
+    //@Cacheable(key = "'StatuteServiceImpl:selectByCondition'+#condition['pageNum']+#condition['pageSize']+#condition['type']")
     @Override
     public PageInfo<Statute> selectByCondition(Map<String, Object> condition) {
         //默认值设置
@@ -54,7 +54,7 @@ public class StatuteServiceImpl extends IServiceImpl<Statute> implements Statute
 
     }
 
-    @CacheEvict(/*cacheNames = "statuteCache" ,*/allEntries = true)
+    //@CacheEvict(/*cacheNames = "statuteCache" ,*/allEntries = true)
     @Override
     public int updateByPrimaryKeySelective(Statute statute) {
         return super.updateByPrimaryKeySelective(statute);

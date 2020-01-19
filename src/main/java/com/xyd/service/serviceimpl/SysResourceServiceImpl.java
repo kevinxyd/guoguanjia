@@ -40,7 +40,7 @@ public class SysResourceServiceImpl extends IServiceImpl<SysResource> implements
 
 
     @Override
-    @Cacheable(cacheNames = "resourceCache",key = "'cn.nyse.service.impl.SysResourceServiceImpl:selectAll'")
+    //@Cacheable(cacheNames = "resourceCache",key = "'cn.nyse.service.impl.SysResourceServiceImpl:selectAll'")
     public List<SysResource> selectAll() {
         return super.selectAll();
     }

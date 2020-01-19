@@ -24,11 +24,11 @@ import java.util.List;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames = "appVersionCache")
+//@CacheConfig(cacheNames = "appVersionCache")
 public class AppVersionServiceImpl extends IServiceImpl<AppVersion> implements AppVersionService {
 
 
-    @Cacheable(key = "'AppVersionServiceImpl:selectByCondition'+#pageNum+#pageSize")
+    //@Cacheable(key = "'AppVersionServiceImpl:selectByCondition'+#pageNum+#pageSize")
     @Override
     public PageInfo<AppVersion> selectPage(Integer pageNum, Integer pageSize) {
         //开启分页拦截  分页插件会自动在最近一个sql执行前，自动添加分页的sql代码 limit x,x
@@ -37,7 +37,7 @@ public class AppVersionServiceImpl extends IServiceImpl<AppVersion> implements A
         return new PageInfo<>(list);
     }
 
-    @CacheEvict(allEntries = true)
+    //@CacheEvict(allEntries = true)
     @Override
     public int updateByPrimaryKeySelective(AppVersion T) {
         return super.updateByPrimaryKeySelective(T);

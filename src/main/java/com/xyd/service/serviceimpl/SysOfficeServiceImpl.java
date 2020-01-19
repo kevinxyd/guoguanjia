@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service
 @Transactional
-@CacheConfig(cacheNames = "sysOfficeCache")
+//@CacheConfig(cacheNames = "sysOfficeCache")
 public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements SysOfficeService{
 
     @Autowired
@@ -49,7 +49,7 @@ public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements Sys
         return sysOfficeMapper.selectByOid(oid);
     }
 
-    @Cacheable(/*cacheNames = "sysOfficeCache",*/key = "'com.xyd.service.serviceimpl.SysOfficeServiceImpl:selectAll'")
+    //@Cacheable(/*cacheNames = "sysOfficeCache",*/key = "'com.xyd.service.serviceimpl.SysOfficeServiceImpl:selectAll'")
     @Override
     public List<SysOffice> selectAll() {
         return super.selectAll();
@@ -64,7 +64,7 @@ public class SysOfficeServiceImpl extends IServiceImpl<SysOffice> implements Sys
      * @param record
      * @return
      */
-    @CacheEvict(/*cacheNames = "sysOfficeCache" ,*/allEntries = true)
+    //@CacheEvict(/*cacheNames = "sysOfficeCache" ,*/allEntries = true)
     @Override
     public int updateByPrimaryKeySelective(SysOffice record) {
         return super.updateByPrimaryKeySelective(record);

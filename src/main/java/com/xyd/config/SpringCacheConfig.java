@@ -83,10 +83,10 @@ public class SpringCacheConfig {
     public CacheManager getCacheManager(RedisTemplate<String,Object> redisTemplate){
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
         HashSet<String> cacheNames = new HashSet<>();
-        cacheNames.add("sysOfficeCache");
+        /*cacheNames.add("sysOfficeCache");
         cacheNames.add("statuteCache");
         cacheNames.add("appVersionCache");
-        cacheNames.add("resourceCache");
+        cacheNames.add("resourceCache");*/
         redisCacheManager.setCacheNames(cacheNames);
         return redisCacheManager;
     }
